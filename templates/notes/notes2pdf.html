@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>PDF File on {{note.topic}} </title>
+</head>
+
+<body>
+
+    <h1>Topic: {{note.topic}} </h1>
+    <h2>Speaker: {{note.speaker}} | Notebook: {{ note.notebook }}</h2>
+    <hr>
+
+    <img src={{note.photo_main.path}} height='300px'>
+
+    {{note.main_content | linebreaks }}
+
+    <hr>
+    <footer id="main-footer" class="py-4 bg-primary text-white text-center">
+        Copyright &copy;
+        <span class="year"></span> Personal Digital Notebooks
+</body>
+
+</html>

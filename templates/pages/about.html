@@ -1,0 +1,116 @@
+<!-- inherits the template from the base or parent.html -->
+{% extends 'base.html' %}
+
+<!-- static files i.e images to be included -->
+{% load static %}
+
+<!-- package for formatting like 'date: timesince' -->
+{% load humanize %}
+
+<!-- dynamic page title -->
+{% block title %} | About {% endblock %}
+
+<!-- unique body of the child html-->
+{% block content %}
+
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h1 class="display-4">About Personal Digital Notebooks</h1>
+                <p class="lead">A world of possibilities at your fingertips: Explore your personalized notebooks and
+                    notes.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Breadcrumb -->
+<section id="bc" class="mt-3">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <!-- calls for index.html via pages\views.py thru pages\urls.py-->
+                    <a href="{% url 'index' %}">
+                        <i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item active"> About</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<section id="about" class="py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Your Notes Online</h2>
+                <p class="lead"><strong>Six good reasons to take notes</strong></p>
+                <img src="{% static 'img/about.jpg' %}" alt="">
+                <p class="mt-4">
+                <ul>
+                    <li>Notes are a useful record of key information, and the sources of that information.</li>
+                    <li>Writing notes helps you remember what you heard.</li>
+                    <li>Taking notes helps you to concentrate and listen effectively.</li>
+                    <li>Selecting what to note down increases your understanding.</li>
+                    <li>Notes create a resource for exam preparation.</li>
+                    <li>Notes taken in classes often contain information that can't be found elsewhere</li>
+                    <br>
+                    <a href="https://www.student.unsw.edu.au/note-taking-skills#:~:text=Notes%20are%20a%20useful%20record,note%20down%20increases%20your%20understanding."
+                        target="_blank">Source: UNSW - Sydney</a>
+                </ul>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">Most Valuable</h5>
+                        {% for my_mvp in mvp_notebooks %}
+                        <img class="card-img-top" src="{{ my_mvp.photo_cover.url }}" alt="Valuable Notebook">
+                        <h6 class="text-secondary">{{ my_mvp.title }}</h6>
+                        <i class="fas fa-clock"></i> {{ my_mvp.notebook_date | timesince }}
+                        <p class="card-text">{{ my_mvp.description }}
+                        </p>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Notes -->
+<section id="work" class="bg-dark text-white text-center">
+    <h2 class="display-4"> Notes Make You Remember </h2>
+    <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem velit aperiam, unde aliquid at similique!</h4>
+    <hr>
+    <a href="{% url 'notes' %}" class="btn btn-secondary text-white btn-lg">View Personal Notes</a>
+</section>
+
+<!-- Notebooks Created -->
+<section id="team" class="py-5">
+    <div class="container">
+        <h2 class="text-center">Latest Notebooks</h2>
+        <div class="row text-center">
+            {% if my_notebooks %}
+            {% for my_notebook in my_notebooks %}
+            <div class="col-md-4">
+                <img src="{{ my_notebook.photo_cover.url }}" alt="" class="rounded-circle mb-3">
+                <h4>{{ my_notebook.title }}</h4>
+            </div>
+            {% endfor %}
+
+            {% else %}
+            <div class="col-md-12">
+                <p>No Notebooks Created</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
