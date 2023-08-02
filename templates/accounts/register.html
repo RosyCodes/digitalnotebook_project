@@ -36,12 +36,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="password2">Password</label>
-                                <input type="password" name="password" class="form-control" required>
+                                <input type="password" name="password" class="form-control" id="myPassword1" required>
+                                <input type="checkbox" onclick="showPassword1()">Show Password
                             </div>
                             <div class="form-group">
                                 <label for="password">Confirm Password</label>
-                                <input type="password" name="password2" class="form-control" required>
+                                <input type="password" name="password2" class="form-control" id="myPassword2" required>
+                                <input type="checkbox" onclick="showPassword2()">Show Password
                             </div>
+
                             <input type="submit" value="Register" class="btn btn-secondary btn-block">
                         </form>
                     </div>
@@ -50,5 +53,6 @@
         </div>
     </div>
 </section>
+
 
 {% endblock %}

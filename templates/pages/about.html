@@ -56,10 +56,9 @@
                     <li>Selecting what to note down increases your understanding.</li>
                     <li>Notes create a resource for exam preparation.</li>
                     <li>Notes taken in classes often contain information that can't be found elsewhere</li>
-                    <br>
-                    <a href="https://www.student.unsw.edu.au/note-taking-skills#:~:text=Notes%20are%20a%20useful%20record,note%20down%20increases%20your%20understanding."
-                        target="_blank">Source: UNSW - Sydney</a>
                 </ul>
+                <br>
+                <i>Source: UNSW - Sydney</i>
                 </p>
             </div>
             <div class="col-md-4">
@@ -86,9 +85,10 @@
 <!-- Notes -->
 <section id="work" class="bg-dark text-white text-center">
     <h2 class="display-4"> Notes Make You Remember </h2>
-    <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem velit aperiam, unde aliquid at similique!</h4>
+    <h4>Stay Organized, Stay Inspired: Personal Notebooks for Productivity</h4>
     <hr>
-    <a href="{% url 'notes' %}" class="btn btn-secondary text-white btn-lg">View Personal Notes</a>
+    <a href="{% url 'notes' %}" class="btn btn-secondary text-white btn-lg">Browse All Notes</a>
+
 </section>
 
 <!-- Notebooks Created -->
@@ -99,7 +99,8 @@
             {% if my_notebooks %}
             {% for my_notebook in my_notebooks %}
             <div class="col-md-4">
-                <img src="{{ my_notebook.photo_cover.url }}" alt="" class="rounded-circle mb-3">
+                <img src="{{ my_notebook.photo_cover.url }}" alt="" class="rounded-circle mb-3" width="100"
+                    height="300">
                 <h4>{{ my_notebook.title }}</h4>
             </div>
             {% endfor %}

@@ -113,6 +113,10 @@
                                 <i class="fas fa-calendar"></i> Date Created:
                                 <span class="float-right">{{ note.note_date }}</span>
                             </li>
+                            <li class="list-group-item text-secondary">
+                                <i class="fas fa-user"></i> Owner:
+                                <span class="float-right">{{ note.notebook.user.first_name }}</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -120,7 +124,8 @@
                 <!-- Description -->
                 <div class="row mb-5">
                     <div class="col-md-12">
-                        {{ note.main_content | linebreaks }}
+                        <!-- displays the content with formatting styles-->
+                        {{ note.main_content | safe }}
                         <br>
                         {% if note.upload %}
                         <strong>
@@ -129,6 +134,7 @@
                                     here</a>.</p>
                         </strong>
                         {% else %}
+                        <br>
                         <strong>
                             <p> No PDF file attached. </p>
                         </strong>
@@ -151,6 +157,23 @@
                 <a href="{% url 'note-pdf-view' note.id %}" target="_blank"><button
                         class="btn-primary btn-block btn-lg">Generate
                         PDF</button></a>
+                <br>
+                {% if user.is_authenticated and user == note.notebook.user %}
+                <a href="{% url 'sharenote' note.id %}"><button class="btn-primary btn-block btn-lg">Get
+                        Shareable Link
+                    </button></a>
+                <br>
+                <a href="{% url 'editnote' note.notebook_id note.id %}">
+                    <button class="btn-primary btn-block btn-lg">Edit Note</button>
+                </a>
+
+                <br>
+                <a href="{% url 'deletenote' note.id %}">
+                    <button class="btn-primary btn-block btn-lg">Delete Note</button>
+                </a>
+                {% endif %}
+
+
             </div>
         </div>
     </div>

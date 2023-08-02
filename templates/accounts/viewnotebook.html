@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %} | User Notebooks {% endblock %}
+
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h1 class="display-4">User Dashboard</h1>
+                <p class="lead">Manage your Notebooks and Notes</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Breadcrumb -->
+<section id="bc" class="mt-3">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'index' %}">
+                        <i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{% url 'dashboard' %}"> Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active"> All Notebooks </li>
+            </ol>
+
+        </nav>
+    </div>
+</section>
+
+
+
+
+<!-- Alerts-->
+{% include 'partials/_alerts.html' %}
+
+<section id="dashboard" class="py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 bg-light text-right">
+                <a href="{% url 'createnotebook' %}"><button class="btn btn-primary">Add New
+                        Notebook</button></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Welcome {{ user.first_name }}</h2>
+                {% if usernotebooks %}
+                <p>Here are the notebooks you have created. </p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Notebook</th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for usernotebook in usernotebooks %}
+                        <tr>
+                            <td>{{ usernotebook.id }}</td>
+                            <td><img src="{{ usernotebook.photo_cover.url }}" alt="Notebook Cover"
+                                    style="max-height: 100px;"></td>
+                            <td>{{ usernotebook.title }}</td>
+                            <td>
+                                <a class="btn btn-primary" href="{% url 'viewnotes' usernotebook.id %}">View Notes</a>
+                                <a class="btn btn-primary" href="{% url 'addnote' usernotebook.id %}">Add Notes</a>
+                                <a class="btn btn-primary" href="{% url 'updatenotebook' usernotebook.id %}">Update
+                                    Notebook</a>
+                                <a class="btn btn-danger" href="{% url 'deletenotebook' usernotebook.id %}">Delete
+                                    Notebook</a>
+
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+
+
+                    </tbody>
+                </table>
+                {% else %}
+                <p> You don't have any notebook created. </p>
+                {% endif %}
+                <p>Click <strong>Add New Notebook</strong> to create a new newbook.</p>
+
+            </div>
+        </div>
+
+        <!-- Pagination-->
+        <div class="row">
+            <div class="col-md-12">
+
+                <ul class="pagination">
+                    <span class="step-links">
+                        {% if usernotebooks.has_previous %}
+                        <a href="?page=1">&laquo; First</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                        {% endif %}
+
+                        <span class="current"> <strong>
+                                Page {{ usernotebooks.number }} of {{ usernotebooks.paginator.num_pages }}. </strong>
+                        </span>
+
+                        {% if usernotebooks.has_next %}
+                        <a href="?page={{ usernotebooks.next_page_number }}">Next</a>
+                        <a href="?page={{ usernotebooks.paginator.num_pages }}">Last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock content %}

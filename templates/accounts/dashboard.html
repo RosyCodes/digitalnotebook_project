@@ -8,7 +8,7 @@
         <div class="row text-center">
             <div class="col-md-12">
                 <h1 class="display-4">User Dashboard</h1>
-                <p class="lead">Manage your Notes</p>
+                <p class="lead">Manage your Notebooks and Notes</p>
             </div>
         </div>
     </div>
@@ -25,9 +25,13 @@
                 </li>
                 <li class="breadcrumb-item active"> Dashboard </li>
             </ol>
+
         </nav>
     </div>
 </section>
+
+
+
 
 <!-- Alerts-->
 {% include 'partials/_alerts.html' %}
@@ -35,14 +39,23 @@
 <section id="dashboard" class="py-4">
     <div class="container">
         <div class="row">
+            <div class="col-md-12 bg-light text-right">
+                <a href="{% url 'viewnotebook' %}" target="_blank"><button class="btn btn-primary">View Notebooks
+                        List</button></a>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-md-12">
                 <h2>Welcome {{ user.first_name }}</h2>
+                <hr>
                 {% if contacts %}
-                <p>Here are the notes you have inquired about</p>
+                <p>Here are the notes you have inquired about
+                </p>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">ID</th>
                             <th scope="col">Note</th>
                             <th></th>
                         </tr>
@@ -53,7 +66,7 @@
                             <td>{{ contact.id }}</td>
                             <td>{{ contact.note }}</td>
                             <td>
-                                <a class="btn btn-light" href="{% url 'note' contact.note_id %}">View Notes</a>
+                                <a class="btn btn-primary" href="{% url 'note' contact.note_id %}">View Details</a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -63,6 +76,8 @@
                 {% else %}
                 <p> You have not left any comments at any note. </p>
                 {% endif %}
+                <p>Click <strong>View Notebook List</strong> to display your list of notebooks.</p>
+
             </div>
         </div>
     </div>

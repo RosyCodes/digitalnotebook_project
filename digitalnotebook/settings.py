@@ -33,18 +33,20 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'pages.apps.PagesConfig',
-    'notes.apps.NotesConfig',
-    'notebooks.apps.NotebooksConfig',
-    'accounts.apps.AccountsConfig',
-    'contacts.apps.ContactsConfig', 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pages.apps.PagesConfig',
+    'notes.apps.NotesConfig',
+    'notebooks.apps.NotebooksConfig',
+    'accounts.apps.AccountsConfig',
+    'contacts.apps.ContactsConfig', 
+    'sharednotes.apps.SharednotesConfig', 
     'django.contrib.humanize',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [

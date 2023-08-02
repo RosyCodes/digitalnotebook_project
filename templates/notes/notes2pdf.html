@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,17 +10,17 @@
 <body>
 
     <h1>Topic: {{note.topic}} </h1>
-    <h2>Speaker: {{note.speaker}} | Notebook: {{ note.notebook }}</h2>
+    <h2><i>Speaker: {{note.speaker}} | Notebook: {{ note.notebook }} </i></h2>
+
     <hr>
 
     <img src={{note.photo_main.path}} height='300px'>
+    <br>
 
-    {{note.main_content | linebreaks }}
+    {{note.main_content | safe }}
 
     <hr>
-    <footer id="main-footer" class="py-4 bg-primary text-white text-center">
-        Copyright &copy;
-        <span class="year"></span> Personal Digital Notebooks
-</body>
+    {% include 'partials/_footer.html' %}
+    <span>| Date Printed: {{ current_datetime }} </span>
 
 </html>

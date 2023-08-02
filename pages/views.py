@@ -22,7 +22,7 @@ def about(request):
     my_notebooks = Notebook.objects.order_by('-notebook_date')[:3]
     
     # get the 1 most valuable notebook 
-    mvp_notebooks = Notebook.objects.all().filter(is_mvp=True)[:2]
+    mvp_notebooks = Notebook.objects.all().filter(is_mvp=True)[:3]
     
     context = {
         'my_notebooks': my_notebooks,

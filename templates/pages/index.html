@@ -28,11 +28,12 @@
                             <div class="col-md-4 mb-3">
                                 <label class="sr-only">Keywords</label>
                                 <input type="text" name="keywords" class="form-control"
-                                    placeholder="Keyword (Recipe, Coding, Personal, etc)">
+                                    placeholder="Keyword (Dogs, Coding, Personal, etc)">
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label class="sr-only">topic</label>
-                                <input type="text" name="topic" class="form-control" placeholder="Topic">
+                                <label class="sr-only">Topic</label>
+                                <input type="text" name="topic" class="form-control"
+                                    placeholder="Topic Title (Training, Food, Tourist, etc)">
                             </div>
 
                             <div class="col-md-4 mb-3">
@@ -74,7 +75,7 @@
                         <div class="listing-heading text-center">
                             <h4 class="text-primary">{{my_note.topic}}</h4>
                             <p>
-                                <i class="fas fa-th-large"></i>Notebook: {{ my_note.notebook }}
+                                <i class="fas fa-th-large"></i> Notebook: {{ my_note.notebook }}
                             </p>
                         </div>
 

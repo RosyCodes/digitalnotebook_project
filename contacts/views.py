@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Contact
 
+
 def contact(request):
     if request.method == 'POST':
         note_id = request.POST['note_id']
@@ -27,3 +28,6 @@ def contact(request):
 
         messages.success(request,'Your message has been submitted. The author will reach out to you soon.')
         return redirect('/notes/'+note_id)
+
+
+

@@ -1,8 +1,11 @@
 from django.shortcuts import render,get_object_or_404
 from django.core.paginator import Paginator
+from datetime import datetime
+
 from .choices import pdf_choices
 from .models import Note
 from .models import Notebook
+
 
 # libraries for pdf generator
 from django.http import HttpResponse
@@ -41,37 +44,13 @@ def note(request,note_id):
 def note_render_pdf_views(request,*args,**kwargs):
     note_id = kwargs.get('note_id')
     note = get_object_or_404(Note,pk=note_id)
-
+    current_datetime = datetime.now()
     template_path = 'notes/notes2pdf.html'
 
     context = {
-        'note': note
+        'note': note,
+        'current_datetime': current_datetime,
         }
-    # Create a Django response object, and specify content_type as pdf
-    response = HttpResponse(content_type='application/pdf')
-    
-    # if download note as pdf:
-    #response['Content-Disposition'] = 'attachment; filename="report.pdf"'
-    
-    # if display notes as pdf
-    response['Content-Disposition'] =  'filename="report.pdf"'
-    # find the template and render it.
-    template = get_template(template_path)
-    html = template.render(context)
-
-    # create a pdf
-    pisa_status = pisa.CreatePDF(
-       html, dest=response)
-    # if error then show some funny view
-    if pisa_status.err:
-       return HttpResponse('We had some errors <pre>' + html + '</pre>')
-    return response
-
-
-
-def render_pdf_view(request):
-    template_path = 'notes/notes2pdf.html'
-    context = {'myvar': 'this is your template context'}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     
@@ -95,7 +74,7 @@ def render_pdf_view(request):
 def search(request):
     # get the notes based on the search criteria while connecting to other table
 
-    queryset_list = Note.objects.order_by('-note_date')
+    queryset_list = Note.objects.order_by('-note_date').filter(is_published=True)
     
     # keywords
     if 'keywords' in request.GET:
