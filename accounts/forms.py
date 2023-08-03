@@ -22,8 +22,7 @@ class NotebookForm(ModelForm):
             'is_mvp': 'Mark as Valuable Notebook:',
             'is_published': 'Publish Publicly:',
             'notebook_date': 'Date Created',
-            'photo_cover': 'Upload notebook cover image',
-           
+            'photo_cover': 'Upload notebook main image',          
         }
 
 
@@ -32,8 +31,6 @@ class NotebookForm(ModelForm):
             'course': forms.TextInput(attrs={'class':'form-control'}),
             'description': forms.Textarea(attrs={'class':'form-control','cols':80,'rows':5}),
             'notebook_date': forms.DateTimeInput(format='%Y-%m-%d %H:%M:%S'),
-          
-            
         }
 
     def __init__(self, *args, **kwargs):
@@ -44,9 +41,7 @@ class NotebookForm(ModelForm):
 # create a Note form
 class NoteForm(ModelForm):
    
-
-    class Meta:
-        
+    class Meta:     
         model = Note
         exclude = ['notebook_id']
 
@@ -54,8 +49,7 @@ class NoteForm(ModelForm):
             'upload': 'Attach files to upload:',
             'is_published': 'Publish Publicly:',
             'note_date': 'Date Created',
-            'photo_main': 'Upload primary image',
-           
+            'photo_main': 'Upload primary image',          
         }
        
         widgets = {
@@ -63,7 +57,6 @@ class NoteForm(ModelForm):
             'speaker': forms.TextInput(attrs={'class':'form-control'}),
             'main_content': forms.Textarea(attrs={'class':'form-control','cols':80,'rows':10}),
             'note_date': forms.DateTimeInput(format='%Y-%m-%d %H:%M:%S'),
-
             
         }
 
