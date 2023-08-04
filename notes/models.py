@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.utils import timezone
 from ckeditor.fields import RichTextField
 
 from notebooks.models import Notebook
@@ -19,7 +20,7 @@ class Note(models.Model):
     photo_5 = models.ImageField(upload_to='photos/%Y/%m/%d/',blank=True)
     photo_6 = models.ImageField(upload_to='photos/%Y/%m/%d/',blank=True)
     is_published = models.BooleanField(default=True)
-    note_date = models.DateTimeField(default=datetime.now,blank=True)
+    note_date = models.DateTimeField(default=timezone.now,blank=True)
     
     
     def __str__(self):
