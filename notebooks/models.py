@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.utils import timezone
 from django.conf import settings
 
 
@@ -10,7 +11,7 @@ class Notebook(models.Model):
     description = models.TextField(blank=True)
     photo_cover = models.ImageField(upload_to='photos/%Y/%m/%d/')
     is_published = models.BooleanField(default=True)
-    notebook_date = models.DateTimeField(default=datetime.now,blank=True)
+    notebook_date = models.DateTimeField(default=timezone.now,blank=True)
     is_mvp = models.BooleanField(default=False)
     user =  models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
    
