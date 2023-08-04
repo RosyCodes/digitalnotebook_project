@@ -1,6 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from django.core.paginator import Paginator
 from datetime import datetime
+from django.utils import timezone
 
 from .choices import pdf_choices
 from .models import Note
@@ -44,7 +45,7 @@ def note(request,note_id):
 def note_render_pdf_views(request,*args,**kwargs):
     note_id = kwargs.get('note_id')
     note = get_object_or_404(Note,pk=note_id)
-    current_datetime = datetime.now()
+    current_datetime = timezone.now()
     template_path = 'notes/notes2pdf.html'
 
     context = {
