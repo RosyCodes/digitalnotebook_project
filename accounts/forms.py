@@ -38,12 +38,14 @@ class NotebookForm(ModelForm):
         # Exclude the 'user' field from the form
         self.fields.pop('user')
 
+
 # create a Note form
 class NoteForm(ModelForm):
    
     class Meta:     
         model = Note
         exclude = ['notebook_id']
+        
 
         labels = {
             'upload': 'Attach files to upload:',
@@ -53,10 +55,12 @@ class NoteForm(ModelForm):
         }
        
         widgets = {
+            
             'topic': forms.TextInput(attrs={'class':'form-control'}),
             'speaker': forms.TextInput(attrs={'class':'form-control'}),
             'main_content': forms.Textarea(attrs={'class':'form-control','cols':80,'rows':10}),
             'note_date': forms.DateTimeInput(format='%Y-%m-%d %H:%M:%S'),
             
         }
+    
 
