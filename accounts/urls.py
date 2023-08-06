@@ -9,6 +9,7 @@ urlpatterns = [
     path('logout',views.logout,name='logout'),
     path('dashboard',views.dashboard,name='dashboard'),
     path('viewnotebook',views.viewnotebook,name='viewnotebook'),
+    path('viewmessage/<int:note_id>',views.viewmessage,name='viewmessage'),
     path('<int:notebook_id>',views.viewnotes,name='viewnotes'),
     path('createnotebook',views.createnotebook,name='createnotebook'),
     path('createnotebook/<int:notebook_id>',views.addnote,name='addnote'),
