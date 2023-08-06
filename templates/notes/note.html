@@ -41,6 +41,9 @@
 <section id="listing" class="py-4">
     <div class="container">
         <a href="{% url 'notes' %}" class="btn btn-light mb-4">Back To All Notes</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'viewnotebook'  %}" class="btn btn-light mb-4">Back to All Notebooks </a>
+        {% endif %}
         <div class="row">
             <div class="col-md-9">
                 <!-- Home Main Image -->
@@ -171,7 +174,15 @@
                 <a href="{% url 'deletenote' note.id %}">
                     <button class="btn-primary btn-block btn-lg">Delete Note</button>
                 </a>
+
+                <br>
+                <a href="{% url 'viewmessage' note.id %}">
+                    <button class="btn-primary btn-block btn-lg">View Feedback</button>
+                </a>
+
                 {% endif %}
+
+
 
 
             </div>

@@ -103,6 +103,7 @@ def viewnotebook(request):
     return render(request,'accounts/viewnotebook.html',context)
 
 
+
 def viewnotes(request,notebook_id):
     # get all the notes for the logged in user
     user_notes =  Note.objects.all().filter(notebook_id=notebook_id)
@@ -117,12 +118,20 @@ def createnotebook(request):
     if request.method == 'POST':
         form = NotebookForm(request.POST, request.FILES)
         if form.is_valid():
+            title = form.cleaned_data['title']
+
+            # Check if a notebook with the same title already exists
+            if Notebook.objects.filter(title=title, user_id=request.user.id).exists():
+                messages.error(request, 'A notebook with this title already exists. Please choose a different title.')
+                return redirect('createnotebook')
+            
             notebook = form.save(commit=False)
             notebook.user_id = request.user.id
             notebook.save()
             messages.success(request, 'You have successfully created a new notebook.')
             return redirect('viewnotebook')
         else:
+            print(form.errors)
             messages.error(request, 'Please complete required fields.')
             return redirect('createnotebook')
     else:
@@ -134,11 +143,19 @@ def createnotebook(request):
     return render(request, 'accounts/createnotebook.html', context)
 
 
+
+
+
 def addnote(request,notebook_id):
-    # create new note for a given notebook of an authorized user
-    notebook = Notebook.objects.get(id=notebook_id)
-    # accept input including image or upload files
+   # Get the notebook object or return a 404 page if not found
+    notebook = get_object_or_404(Notebook, id=notebook_id)
+
+    # Check if the current user owns the notebook
+    if request.user.id != notebook.user_id:
+        return redirect('viewnotebook')  
+
     if request.method == 'POST':
+
         form = NoteForm(request.POST,request.FILES)
                
         if form.is_valid():
@@ -149,10 +166,13 @@ def addnote(request,notebook_id):
             messages.success(request, 'You have succesfully created a new note.')
             return redirect('viewnotebook')
         else:
+            
             messages.error(request,'Please complete required fields. ')
-            return redirect('createnote')
+            return redirect('addnote',notebook_id)
+            
                 
     else:
+        
         form = NoteForm(initial={'notebook': notebook_id})
     
     context = {
@@ -231,6 +251,18 @@ def deletenote(request, note_id):
 
     return render(request, 'notes/deletenote.html', {'note': note})
 
+
+def viewmessage(request, note_id):
+    # Get the Note object associated with the given note_id
+    note = get_object_or_404(Note, id=note_id)
+    # Get the message associated with the user for the given note_id
+    messages = Contact.objects.all().filter(note_id=note_id)
+
+    context = {
+        'note':note,
+        'messages': messages,
+    }
+    return render(request, 'accounts/viewmessage.html', context)
 
 def sharenote(request, note_id):
      # get the note details for a specific note of a  authorized user
