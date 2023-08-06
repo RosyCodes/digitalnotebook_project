@@ -13,3 +13,12 @@ db.sqlite3-journal
 venv
 /static
 .env
+
+# Exclude test folders
+**/tests/
+**/test_*/
+
+# Exclude test files
+*_test.py
+test_*.py
+pytest.ini
