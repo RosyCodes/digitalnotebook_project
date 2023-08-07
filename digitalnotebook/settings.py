@@ -13,10 +13,7 @@ import os
 from pathlib import Path
 from decouple import config
 from django.contrib.messages import constants as messages
-#from dotenv import load_dotenv
 
-# Load environment variables from .env file
-#load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,6 +30,7 @@ SECRET_KEY = config('my_secret_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# SECURITY WARNING: CHANGE THIS TO PUBLIC DOMAIN
 DOMAIN = 'localhost:8000'
 
 ALLOWED_HOSTS = []
