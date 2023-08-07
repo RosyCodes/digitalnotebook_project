@@ -1,3 +1,17 @@
+from django.utils.encoding import force_str
+from django.contrib.auth import get_user_model
+
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
@@ -12,7 +26,6 @@ from notes.models import Note
 from sharednotes.models import SharedNote
 from .forms import NotebookForm
 from .forms import NoteForm
-
 
 def register(request):
     # Register User
@@ -39,21 +52,57 @@ def register(request):
                     # user credentials are valid and unique, save
                     user = User.objects.create_user(first_name=first_name,last_name=last_name,username=username,email=email,password=password)
                     
-                    # use this to login after user registration 
-                    # auth.login(request,user)
-                    # messages.success(request, 'You are now logged in')
-                    # return redirect('index')
+                     # Send confirmation email
+                    if user:
+                        # Generate the token for the confirmation link
+                        token = default_token_generator.make_token(user)
+                        uid = urlsafe_base64_encode(force_bytes(user.pk))
+                        domain = get_current_site(request).domain
+                        confirm_url = reverse('confirm_registration', kwargs={'uidb64': uid, 'token': token})
+                        confirmation_link = f"http://{domain}{confirm_url}"
 
-                    # require teh user to login using their credentials
-                    user.save();
-                    messages.success(request, 'You are now registered and can login.')
-                    return redirect('login')
+                        subject = 'Confirmation Email'
+                        html_message = render_to_string('accounts/confirmation_email.html', {
+                            'user': user,
+                            'domain': domain,
+                            'confirmation_link': confirmation_link,
+                        })
+
+                    
+                        # Create plain text version by stripping HTML tags
+                        text_message = strip_tags(html_message)
+
+                        # Send the email using EmailMultiAlternatives
+                        msg = EmailMultiAlternatives(subject, text_message, 'rnldevsolutions@gmail.com', [user.email])
+                        msg.attach_alternative(html_message, "text/html")
+                        msg.send()
+
+                        messages.success(request, 'You are now registered. A confirmation email has been sent to your email address. Please click the link in the email to confirm your registration.')
+                        return redirect('login')
+
 
         else:
             messages.error(request,'Passwords do not match')
             return redirect('register')
     else:
         return render(request,'accounts/register.html')
+
+
+def confirm_registration(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        messages.success(request, 'Your account has been activated. You can now log in.')
+    else:
+        messages.error(request, 'The confirmation link is invalid or has expired. Please try again or contact support.')
+
+    return redirect('login')
 
 def login(request):
      # Login User

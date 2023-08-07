@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 
@@ -19,5 +19,6 @@ urlpatterns = [
     path('deletenote/<int:note_id>', views.deletenote, name='deletenote'),
     path('shared/<str:token>/', views.sharednotedetail, name='sharednotedetail'),
     path('share/<int:note_id>/', views.sharenote, name='sharenote'),
+    path('confirm_registration/<str:uidb64>/<str:token>/', views.confirm_registration, name='confirm_registration'),
 
-]
+    ]
