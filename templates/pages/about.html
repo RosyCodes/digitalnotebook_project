@@ -60,13 +60,27 @@
                 <br>
                 <i>Source: UNSW - Sydney</i>
                 </p>
+                <hr>
+                <h2>The Features</h2>
+                <p class="mt-4">
+                <ul>
+                    <li>Create and update notebooks and notes to publish or unpublish.</li>
+                    <li>Use formatting toolbars to style texts.</li>
+                    <li>Insert media like images and PDF files.</li>
+                    <li>Leave and view comments or feedbacks on published notes.</li>
+                    <li>Create shareable links for published or unpublished notes.</li>
+                    <li>Generate PDF files to print and/or download.</li>
+                    <li>Learn and collaborate with others. </li>
+
+                </ul>
+                </p>
             </div>
             <div class="col-md-4">
                 <div class="card">
 
                     <div class="card-body">
 
-                        <h5 class="card-title">Most Valuable</h5>
+                        <h5 class="card-title">Most Valuable Notebooks</h5>
                         {% for my_mvp in mvp_notebooks %}
                         <img class="card-img-top" src="{{ my_mvp.photo_cover.url }}" alt="Valuable Notebook">
                         <h6 class="text-secondary">{{ my_mvp.title }}</h6>
@@ -102,6 +116,7 @@
                 <img src="{{ my_notebook.photo_cover.url }}" alt="" class="rounded-circle mb-3" width="100"
                     height="300">
                 <h4>{{ my_notebook.title }}</h4>
+                <h5>Author: <i>{{my_notebook.user}}</i></h5>
             </div>
             {% endfor %}
 
@@ -113,5 +128,27 @@
         </div>
     </div>
 </section>
+
+<!-- Notes -->
+<section id="work" class="bg-dark text-white text-center">
+    <h2 class="display-4"> Rosilie: The Developer</h2>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{% static 'img/developer.jpg' %}" alt="" class="rounded-circle mb-3" width="100" height="300">
+
+
+            </div>
+            <div class="col-md-8 text-left">
+                <h5>Computer Science teacher for 20+ years.</h5>
+                <h5>Passionate about coding and learning.</h5>
+                <h5>Binges on good movies, documentaries, and variety of amazing cuisines.</h5>
+                <h5>Likes to go skydiving one day!</h5>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 {% endblock %}
