@@ -13,6 +13,7 @@ db.sqlite3-journal
 venv
 /static
 .env
+.vscode
 
 # Exclude test folders
 **/tests/
