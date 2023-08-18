@@ -33,8 +33,8 @@ DEBUG = True
 # SECURITY WARNING: CHANGE THIS TO PUBLIC DOMAIN
 DOMAIN = 'localhost:8000'
 
-# TEST ON OTHER DEVICES I.E PHONES. '192.168.1.40 - DELL'S LAPTOP IP
-ALLOWED_HOSTS = ['192.168.1.40','localhost','127.0.0.1']
+# TEST ON OTHER LOCAL DEVICES I.E PHONE, LAPTOP IP. IN Production, we update this to our server's
+ALLOWED_HOSTS = ['localhost','127.0.0.1']
 
 
 # Application definition
