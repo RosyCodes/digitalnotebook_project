@@ -34,7 +34,7 @@ DEBUG = True
 DOMAIN = config('domain')
 
 # TEST ON OTHER LOCAL DEVICES I.E PHONE, LAPTOP IP. IN Production, we update this to our server's
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = config('allowed_hosts', default='localhost,127.0.0.1').split(',')
 
 # Application definition
 
