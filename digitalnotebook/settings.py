@@ -31,11 +31,10 @@ SECRET_KEY = config('my_secret_key')
 DEBUG = True
 
 # SECURITY WARNING: CHANGE THIS TO PUBLIC DOMAIN
-DOMAIN = 'localhost:8000'
+DOMAIN = config('domain')
 
 # TEST ON OTHER LOCAL DEVICES I.E PHONE, LAPTOP IP. IN Production, we update this to our server's
-ALLOWED_HOSTS = ['localhost','127.0.0.1']
-
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
 
 # Application definition
 
